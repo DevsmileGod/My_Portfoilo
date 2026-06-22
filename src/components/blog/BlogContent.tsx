@@ -71,7 +71,7 @@ export function BlogContent({ frontmatter, content, readingTime }: BlogContentPr
       </header>
 
       {/* Content */}
-      <div className="prose prose-neutral dark:prose-invert max-w-none">
+      <div className="prose prose-neutral dark:prose-invert max-w-none custom-prose">
         <MDXRemote
           source={content}
           components={BlogComponents}

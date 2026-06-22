@@ -291,3 +291,97 @@ h1, h2 {
 .prose h4 {
   font-size: calc(var(--blog-font-size) * 1.25);
 }
+
+/* Custom MDX typography (apply via class `custom-prose`) */
+.custom-prose {
+  max-width: 68ch;
+}
+
+.custom-prose p {
+  line-height: 1.75;
+  margin-bottom: 1em;
+}
+
+.custom-prose h1,
+.custom-prose h2,
+.custom-prose h3 {
+  font-family: var(--font-display, var(--font-sans));
+  font-weight: 700;
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+  line-height: 1.05;
+  scroll-margin-top: 6rem;
+  position: relative;
+}
+
+/* Heading anchor # on hover */
+.custom-prose h1::before,
+.custom-prose h2::before,
+.custom-prose h3::before {
+  content: '#';
+  position: absolute;
+  left: -1.6rem;
+  color: var(--primary);
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
+}
+.custom-prose h1:hover::before,
+.custom-prose h2:hover::before,
+.custom-prose h3:hover::before {
+  opacity: 1;
+}
+
+/* Code blocks */
+.custom-prose pre {
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Helvetica Neue', monospace;
+  font-size: 0.9rem;
+}
+
+.custom-prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;
+}
+
+/* Inline code pill */
+.custom-prose p code,
+.custom-prose li code {
+  background: color-mix(in srgb, var(--muted) 88%, transparent);
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  font-size: 0.9em;
+  color: var(--foreground);
+}
+
+/* Blockquotes */
+.custom-prose blockquote {
+  border-left: 4px solid var(--primary);
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+/* Links */
+.custom-prose a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 150ms ease, text-decoration-color 150ms ease;
+}
+.custom-prose a:hover {
+  text-decoration: underline;
+}
+
+/* Images */
+.custom-prose img {
+  display: block;
+  margin: 1rem auto;
+  border-radius: 0.5rem;
+  max-width: 100%;
+}
+
