@@ -2,6 +2,23 @@ import Image from 'next/image';
 import React from 'react';
 
 import { CodeCopyButton } from './CodeCopyButton';
+import { slugifyHeading } from '@/lib/extract-headings';
+
+const getTextContent = (node: React.ReactNode): string => {
+  if (typeof node === 'string' || typeof node === 'number') {
+    return String(node);
+  }
+
+  if (Array.isArray(node)) {
+    return node.map(getTextContent).join('');
+  }
+
+  if (React.isValidElement(node) && node.props) {
+    return getTextContent(node.props.children);
+  }
+
+  return '';
+};
 
 export const BlogComponents = {
   // Override default image component
@@ -30,33 +47,48 @@ export const BlogComponents = {
   }: {
     children: React.ReactNode;
     [key: string]: unknown;
-  }) => (
-    <h1 className="mb-6 text-4xl font-bold" {...props}>
-      {children}
-    </h1>
-  ),
+  }) => {
+    const id =
+      props.id || slugifyHeading(getTextContent(children).replace(/\s+#+$/u, ''));
+
+    return (
+      <h1 id={id} className="mb-6 text-4xl font-bold" {...props}>
+        {children}
+      </h1>
+    );
+  },
   h2: ({
     children,
     ...props
   }: {
     children: React.ReactNode;
     [key: string]: unknown;
-  }) => (
-    <h2 className="mt-8 mb-4 text-3xl font-semibold" {...props}>
-      {children}
-    </h2>
-  ),
+  }) => {
+    const id =
+      props.id || slugifyHeading(getTextContent(children).replace(/\s+#+$/u, ''));
+
+    return (
+      <h2 id={id} className="mt-8 mb-4 text-3xl font-semibold" {...props}>
+        {children}
+      </h2>
+    );
+  },
   h3: ({
     children,
     ...props
   }: {
     children: React.ReactNode;
     [key: string]: unknown;
-  }) => (
-    <h3 className="mt-6 mb-3 text-2xl font-medium" {...props}>
-      {children}
-    </h3>
-  ),
+  }) => {
+    const id =
+      props.id || slugifyHeading(getTextContent(children).replace(/\s+#+$/u, ''));
+
+    return (
+      <h3 id={id} className="mt-6 mb-3 text-2xl font-medium" {...props}>
+        {children}
+      </h3>
+    );
+  },
   // Custom paragraph styling
   p: ({
     children,

@@ -1,5 +1,6 @@
 import { BlogContent } from '@/components/blog/BlogContent';
 import { BlogList } from '@/components/blog/BlogList';
+import TableOfContents from '@/components/blog/TableOfContents';
 import Container from '@/components/common/Container';
 import FontSizeControls from '@/components/common/FontSizeControls';
 import ArrowLeft from '@/components/svgs/ArrowLeft';
@@ -8,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import { siteConfig } from '@/config/Meta';
 import { generateBlogPostingSchema } from '@/lib/schema';
 import { calculateReadingTime } from '@/lib/reading-time';
+import { extractHeadings } from '@/lib/extract-headings';
 import {
   getBlogPostBySlug,
   getBlogPostSlugs,
@@ -118,6 +120,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const relatedPosts = await getRelatedPosts(slug, 3);
 
+  const headings = extractHeadings(post.content);
+
   const blogPostSchema = generateBlogPostingSchema(
     post.frontmatter.title,
     post.frontmatter.description,
@@ -134,7 +138,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           __html: JSON.stringify(blogPostSchema),
         }}
       />
-      <Container className="py-16">
+      <Container className="!max-w-6xl py-16">
         <div className="space-y-12">
           {/* Back Button */}
           <div>
@@ -154,40 +158,46 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </Button>
           </div>
 
-          {/* Blog Content */}
-          <BlogContent 
-            frontmatter={post.frontmatter} 
-            content={post.content}
-            readingTime={readingTime}
-          />
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+            <div className="space-y-12">
+              <BlogContent
+                frontmatter={post.frontmatter}
+                content={post.content}
+                readingTime={readingTime}
+              />
 
-          {/* Related Posts */}
-          {relatedPosts.length > 0 && (
-            <div className="space-y-6">
-              <Separator />
-              <div className="space-y-6">
-                <h2 className="text-2xl font-semibold">Related Posts</h2>
-                <BlogList posts={relatedPosts} />
+              {/* Related Posts */}
+              {relatedPosts.length > 0 && (
+                <div className="space-y-6">
+                  <Separator />
+                  <div className="space-y-6">
+                    <h2 className="text-2xl font-semibold">Related Posts</h2>
+                    <BlogList posts={relatedPosts} />
+                  </div>
+                </div>
+              )}
+
+              {/* Back to Blog CTA */}
+              <div className="text-center">
+                <Separator className="mb-8" />
+                <Button
+                  asChild
+                  size="lg"
+                  track={{
+                    name: 'button_click',
+                    data: { buttonId: 'blog_view_all', section: 'blog_detail' },
+                  }}
+                >
+                  <Link href="/blog">View All Blogs</Link>
+                </Button>
               </div>
             </div>
-          )}
 
-          {/* Back to Blog CTA */}
-          <div className="text-center">
-            <Separator className="mb-8" />
-            <Button
-              asChild
-              size="lg"
-              track={{
-                name: 'button_click',
-                data: { buttonId: 'blog_view_all', section: 'blog_detail' },
-              }}
-            >
-              <Link href="/blog">View All Blogs</Link>
-            </Button>
+            <TableOfContents headings={headings} />
           </div>
         </div>
       </Container>
+
       <FontSizeControls />
     </>
   );
