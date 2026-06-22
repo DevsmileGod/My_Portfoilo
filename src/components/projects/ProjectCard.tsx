@@ -20,6 +20,7 @@ import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
+import { motion } from 'motion';
 import ArrowRight from '../svgs/ArrowRight';
 import Github from '../svgs/Github';
 import PlayCircle from '../svgs/PlayCircle';
@@ -56,16 +57,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <RevealOnScroll>
-      <Card className="group h-full w-full overflow-hidden border-gray-100 p-0 shadow-none transition-all dark:border-gray-800">
-      <CardHeader className="p-0">
-        <div className="group relative aspect-video overflow-hidden">
-          <Image
-            className="h-full w-full object-cover"
-            src={project.image}
-            alt={project.title}
-            width={1920}
-            height={1080}
-          />
+      <motion.div initial="rest" whileHover="hover" className="group">
+        <Card className="h-full w-full overflow-hidden border border-gray-100 p-0 shadow-none transition-colors duration-200 dark:border-gray-800 group-hover:border-primary">
+          <CardHeader className="p-0">
+            <div className="relative aspect-video overflow-hidden">
+              <Image
+                className="h-full w-full object-cover thumbnail-zoom"
+                src={project.image}
+                alt={project.title}
+                width={1920}
+                height={1080}
+              />
           {project.video && (
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogTrigger asChild>
@@ -191,15 +193,23 @@ export function ProjectCard({ project }: ProjectCardProps) {
             )}
           </div>
           <Link
-            href={project.projectDetailsPageSlug}
-            className="text-secondary hover:text-primary flex items-center gap-2 text-sm underline-offset-4 transition-colors hover:underline"
-            onClick={() => trackProject('view_details')}
-          >
-            View Details <ArrowRight className="size-4" />
-          </Link>
-        </CardFooter>
-      )}
-      </Card>
+              href={project.projectDetailsPageSlug}
+              className="text-secondary hover:text-primary flex items-center gap-2 text-sm underline-offset-4 transition-colors hover:underline"
+              onClick={() => trackProject('view_details')}
+            >
+              View Details
+              <motion.span
+                className="size-4"
+                variants={{ rest: { x: -8, opacity: 0 }, hover: { x: 0, opacity: 1 } }}
+                transition={{ duration: 0.2, easing: [0, 0, 0.2, 1] }}
+              >
+                <ArrowRight />
+              </motion.span>
+            </Link>
+          </CardFooter>
+        )}
+        </Card>
+      </motion.div>
     </RevealOnScroll>
   );
 }

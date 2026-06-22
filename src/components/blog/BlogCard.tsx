@@ -62,7 +62,7 @@ export function BlogCard({ post }: BlogCardProps) {
               },
             }}
           >
-            <h3 className="group-hover:text-primary line-clamp-2 text-xl leading-tight font-semibold">
+            <h3 className="group-hover:text-primary line-clamp-2 text-xl leading-tight font-semibold title-underline">
               {title}
             </h3>
           </TrackedLink>
@@ -85,7 +85,7 @@ export function BlogCard({ post }: BlogCardProps) {
           </div>
           <div className="mt-4 flex items-center justify-between gap-2">
             <time
-              className="text-secondary flex items-center gap-2 text-sm"
+              className="text-secondary flex items-center gap-2 text-sm transition-colors duration-200 group-hover:text-primary"
               dateTime={date}
             >
               <Calender className="size-4" /> {formattedDate}

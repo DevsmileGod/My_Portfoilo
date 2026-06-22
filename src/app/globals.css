@@ -385,3 +385,60 @@ h1, h2 {
   max-width: 100%;
 }
 
+/* Title underline animation (used on blog titles) */
+.title-underline {
+  position: relative;
+  display: inline-block;
+}
+.title-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0%;
+  background: var(--primary);
+  transition: width 200ms ease;
+}
+.title-underline:hover::after {
+  width: 100%;
+}
+
+/* CTA shimmer button */
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+.cta-button {
+  position: relative;
+  overflow: hidden;
+}
+.cta-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%);
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+  mix-blend-mode: overlay;
+  opacity: 0.9;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+.cta-button:hover::before {
+  animation: shimmer-sweep 220ms linear forwards;
+}
+.cta-button:active { transform: scale(0.97); }
+
+/* Utility: subtle image zoom for thumbnails on hover (used by project cards) */
+.thumbnail-zoom { transition: transform 200ms ease; }
+.group:hover .thumbnail-zoom { transform: scale(1.05); }
+
+/* Arrow slide-in motion fallback for non-motion environments */
+.arrow-hidden {
+  transform: translateX(-8px);
+  opacity: 0;
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+.group:hover .arrow-hidden { transform: translateX(0); opacity: 1; }
+

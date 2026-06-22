@@ -74,7 +74,7 @@ export default function CTA({
           </p>
           <div className="mt-4 flex w-full justify-center sm:mt-0 sm:w-auto sm:justify-end">
             <div
-              className="group inline-flex cursor-pointer items-center self-end rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-1 text-sm text-black shadow-[0_0_5px_rgba(0,0,0,0.1)] transition-all dark:border-white/30 dark:bg-white/15 dark:text-white dark:shadow-[0_0_5px_rgba(255,255,255,0.1)]"
+              className="group inline-flex cursor-pointer items-center self-end rounded-md border border-dashed border-black/20 bg-black/5 px-2 py-1 text-sm text-black shadow-[0_0_5px_rgba(0,0,0,0.1)] transition-all dark:border-white/30 dark:bg-white/15 dark:text-white dark:shadow-[0_0_5px_rgba(255,255,255,0.1)] cta-button btn-inner-shadow"
               onClick={handleButtonClick}
             >
               <div className="relative z-20 flex items-center gap-2 transition-all duration-300 group-hover:gap-8">
