@@ -1,3 +1,5 @@
+'use client';
+
 import { navbarConfig } from '@/config/Navbar';
 import Image from 'next/image';
 import React from 'react';
@@ -5,11 +7,26 @@ import React from 'react';
 import Container from './Container';
 import { ThemeToggleButton } from './ThemeSwitch';
 import { TrackedLink } from './TrackedLink';
+import useScrollPosition from '@/hooks/use-scroll-position';
 
 export default function Navbar() {
+  const { isScrolled } = useScrollPosition();
+
+  const navStyle = {
+    '--nav-background': 'color-mix(in srgb, var(--background) 80%, transparent)',
+  } as React.CSSProperties;
+
+  const navClasses = [
+    'sticky top-0 left-0 right-0 z-[60] transition-[background,backdrop-filter] duration-200 ease-out',
+    'md:rounded-full md:border md:border-border/30 md:bg-background/90',
+    isScrolled
+      ? 'bg-[var(--nav-background)] border-b border-white/10 shadow-[0_1px_0_rgba(0,0,0,0.06)] backdrop-blur-[12px]'
+      : 'bg-transparent border-b-0 shadow-none',
+  ].join(' ');
+
   return (
-    <Container className="sticky top-0 z-20 rounded-md py-4 backdrop-blur-sm">
-      <div className="flex items-center justify-between px-6">
+    <Container className={navClasses} style={navStyle}>
+      <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-baseline gap-4">
           <TrackedLink
             href="/"
