@@ -6,6 +6,7 @@ import {
   CardFooter,
   CardHeader,
 } from '@/components/ui/card';
+import RevealOnScroll from '@/components/ui/reveal-on-scroll';
 import {
   Dialog,
   DialogContent,
@@ -54,7 +55,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
     });
 
   return (
-    <Card className="group h-full w-full overflow-hidden border-gray-100 p-0 shadow-none transition-all dark:border-gray-800">
+    <RevealOnScroll>
+      <Card className="group h-full w-full overflow-hidden border-gray-100 p-0 shadow-none transition-all dark:border-gray-800">
       <CardHeader className="p-0">
         <div className="group relative aspect-video overflow-hidden">
           <Image
@@ -197,6 +199,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </Link>
         </CardFooter>
       )}
-    </Card>
+      </Card>
+    </RevealOnScroll>
   );
 }

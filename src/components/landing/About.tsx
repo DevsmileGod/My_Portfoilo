@@ -1,3 +1,5 @@
+ 'use client';
+
 import { about, mySkills } from '@/config/About';
 import Image from 'next/image';
 import React from 'react';
@@ -5,6 +7,7 @@ import React from 'react';
 import Container from '../common/Container';
 import SectionHeading from '../common/SectionHeading';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import RevealOnScroll from '@/components/ui/reveal-on-scroll';
 
 export default function About() {
   return (
@@ -27,9 +30,9 @@ export default function About() {
             {mySkills.map((skill) => (
               <Tooltip key={skill.key}>
                 <TooltipTrigger asChild>
-                  <div className="mt-4 size-6 hover:cursor-pointer">
-                    {skill}
-                  </div>
+                  <RevealOnScroll className="mt-4 size-6 hover:cursor-pointer">
+                    <div>{skill}</div>
+                  </RevealOnScroll>
                 </TooltipTrigger>
                 <TooltipContent>{skill.key}</TooltipContent>
               </Tooltip>

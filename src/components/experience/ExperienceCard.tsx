@@ -1,8 +1,11 @@
+ 'use client';
+
 import { type Experience } from '@/config/Experience';
 import { cn } from '@/lib/utils';
 import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import React from 'react';
+import RevealOnScroll from '@/components/ui/reveal-on-scroll';
 
 import Skill from '../common/Skill';
 import Github from '../svgs/Github';
@@ -21,7 +24,8 @@ const parseDescription = (text: string): string => {
 
 export function ExperienceCard({ experience }: ExperienceCardProps) {
   return (
-    <div className="flex flex-col gap-4">
+    <RevealOnScroll>
+      <div className="flex flex-col gap-4">
       {/* Company Header */}
       <div className="flex flex-col gap-2 md:flex-row md:justify-between">
         {/* Left Side */}
@@ -151,6 +155,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
           ),
         )}
       </div>
-    </div>
+      </div>
+    </RevealOnScroll>
   );
 }
