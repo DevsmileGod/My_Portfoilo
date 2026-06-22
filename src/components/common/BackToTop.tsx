@@ -25,6 +25,7 @@ export default function BackToTop() {
         <Button
           variant="outline"
           size="icon"
+          aria-label="Back to top"
           className="fixed right-10 bottom-4 z-50 bg-white hover:cursor-pointer md:right-20 dark:bg-black"
           onClick={handleClick}
           track={{

@@ -9,19 +9,22 @@ export interface PageMeta {
   twitterCard?: 'summary' | 'summary_large_image';
 }
 
+// Base URL constant for canonical URLs and metadata
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_URL || 'http://localhost:3000';
+
 // Base site configuration
 export const siteConfig = {
   name: heroConfig.name,
-  title: 'Sleek Portfolio',
-  description: 'Sleek Portfolio Template by @Ramxcodes',
-  url: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+  title: 'Jessican Carolina Guerrero - Full Stack Developer',
+  description: 'Full Stack Developer specializing in Next.js, React, Node.js, and AI integrations. Building scalable web applications and digital products.',
+  url: BASE_URL,
   ogImage: '/meta/opengraph-image.png',
   author: {
     name: about.name,
-    twitter: '@ramxcodes',
-    github: 'ramxcodes',
-    linkedin: 'ramxcodes',
-    email: 'ramxcodes@gmail.com',
+    twitter: '@godsmiler',
+    github: 'DevsmileGod',
+    linkedin: 'jessican-guerrero',
+    email: 'j61373998@gmail.com',
   },
   keywords: [
     'portfolio',
@@ -171,13 +174,27 @@ export function generateMetadata(pathname: string) {
 
   return {
     metadataBase: new URL(siteConfig.url),
-    title: pageMeta.title,
+    title: {
+      template: '%s | godsmiler',
+      default: pageMeta.title,
+    },
     description: pageMeta.description,
-    keywords: pageMeta.keywords?.join(', '),
-    authors: [{ name: siteConfig.author.name }],
+    keywords: pageMeta.keywords,
+    authors: [
+      {
+        name: siteConfig.author.name,
+        url: siteConfig.url,
+      },
+    ],
     creator: siteConfig.author.name,
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+      apple: '/apple-touch-icon.png',
+    },
     openGraph: {
       type: 'website',
+      locale: 'en_US',
       url: `${siteConfig.url}${pathname}`,
       title: pageMeta.title,
       description: pageMeta.description,
@@ -188,6 +205,7 @@ export function generateMetadata(pathname: string) {
           width: 1200,
           height: 630,
           alt: pageMeta.title,
+          type: 'image/png',
         },
       ],
     },
@@ -196,6 +214,7 @@ export function generateMetadata(pathname: string) {
       title: pageMeta.title,
       description: pageMeta.description,
       creator: siteConfig.author.twitter,
+      site: siteConfig.author.twitter,
       images: [pageMeta.ogImage || siteConfig.ogImage],
     },
     robots: {

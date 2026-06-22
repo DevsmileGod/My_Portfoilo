@@ -6,6 +6,8 @@ import ArrowLeft from '@/components/svgs/ArrowLeft';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { siteConfig } from '@/config/Meta';
+import { generateBlogPostingSchema } from '@/lib/schema';
+import { calculateReadingTime } from '@/lib/reading-time';
 import {
   getBlogPostBySlug,
   getBlogPostSlugs,
@@ -34,7 +36,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  //  await params
   const { slug } = await params;
   const post = await getBlogPostBySlug(slug);
 
@@ -44,23 +45,62 @@ export async function generateMetadata({
     };
   }
 
-  const { title, description, image } = post.frontmatter;
+  const { title, description, image, date } = post.frontmatter;
+  const canonicalUrl = `${siteConfig.url}/blog/${slug}`;
 
   return {
     metadataBase: new URL(siteConfig.url),
-    title,
+    title: {
+      template: '%s | ramxcodes',
+      default: title,
+    },
     description,
+    keywords: ['blog', 'article', 'tutorial', ...post.frontmatter.tags],
+    authors: [
+      {
+        name: 'ramxcodes',
+        url: siteConfig.url,
+      },
+    ],
+    creator: 'ramxcodes',
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+      apple: '/apple-touch-icon.png',
+    },
     openGraph: {
+      type: 'article',
+      locale: 'en_US',
+      url: canonicalUrl,
       title,
       description,
-      images: [image],
-      type: 'article',
+      siteName: siteConfig.title,
+      publishedTime: date,
+      authors: ['ramxcodes'],
+      images: [
+        {
+          url: `${siteConfig.url}${image}`,
+          width: 1200,
+          height: 630,
+          alt: title,
+          type: 'image/png',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [image],
+      creator: '@ramxcodes',
+      site: '@ramxcodes',
+      images: [`${siteConfig.url}${image}`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    alternates: {
+      canonical: canonicalUrl,
     },
   };
 }
@@ -72,10 +112,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post || !post.frontmatter.isPublished) {
     notFound();
   }
+
+  // Calculate reading time
+  const readingTime = calculateReadingTime(post.content);
+
   const relatedPosts = await getRelatedPosts(slug, 3);
+
+  const blogPostSchema = generateBlogPostingSchema(
+    post.frontmatter.title,
+    post.frontmatter.description,
+    post.frontmatter.date,
+    'ramxcodes',
+    post.frontmatter.image,
+  );
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogPostSchema),
+        }}
+      />
       <Container className="py-16">
         <div className="space-y-12">
           {/* Back Button */}
@@ -97,7 +155,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
 
           {/* Blog Content */}
-          <BlogContent frontmatter={post.frontmatter} content={post.content} />
+          <BlogContent 
+            frontmatter={post.frontmatter} 
+            content={post.content}
+            readingTime={readingTime}
+          />
 
           {/* Related Posts */}
           {relatedPosts.length > 0 && (

@@ -1,3 +1,4 @@
+import { env } from '@/lib/env';
 import { systemPrompt } from '@/config/ChatPrompt';
 import { createParser } from 'eventsource-parser';
 import { NextRequest, NextResponse } from 'next/server';
@@ -128,14 +129,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      console.error('GEMINI_API_KEY not configured');
-      return NextResponse.json(
-        { error: 'AI service not configured' },
-        { status: 500 },
-      );
-    }
+    // env is validated at startup - GEMINI_API_KEY is guaranteed to exist
+    const apiKey = env.GEMINI_API_KEY;
 
     const body = await request.json();
     const validatedData = chatSchema.parse(body);

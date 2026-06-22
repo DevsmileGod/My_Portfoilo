@@ -1,3 +1,4 @@
+import { env } from '@/lib/env';
 import { NextRequest, NextResponse } from 'next/server';
 import * as z from 'zod';
 
@@ -68,18 +69,9 @@ async function sendToTelegram(data: {
   phone: string;
   message: string;
 }): Promise<boolean> {
-  const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
-  const telegramChatId = process.env.TELEGRAM_CHAT_ID;
-
-  if (!telegramToken) {
-    console.error('TELEGRAM_BOT_TOKEN not configured');
-    return false;
-  }
-
-  if (!telegramChatId) {
-    console.error('TELEGRAM_CHAT_ID not configured');
-    return false;
-  }
+  // env is validated at startup - both tokens are guaranteed to exist
+  const telegramToken = env.TELEGRAM_BOT_TOKEN;
+  const telegramChatId = env.TELEGRAM_CHAT_ID;
 
   const message = `
 🔔 *New Contact Form Submission*

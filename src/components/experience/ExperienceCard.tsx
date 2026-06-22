@@ -63,6 +63,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
                     <Link
                       href={experience.x}
                       target="_blank"
+                      aria-label={`Follow ${experience.company} on X`}
                       className="size-4 text-neutral-500"
                     >
                       <X />
@@ -77,6 +78,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
                     <Link
                       href={experience.linkedin}
                       target="_blank"
+                      aria-label={`Connect with ${experience.company} on LinkedIn`}
                       className="size-4 text-neutral-500"
                     >
                       <LinkedIn />
@@ -91,6 +93,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
                     <Link
                       href={experience.github}
                       target="_blank"
+                      aria-label={`View ${experience.company} on GitHub`}
                       className="size-4 text-neutral-500"
                     >
                       <Github />

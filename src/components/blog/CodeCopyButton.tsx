@@ -37,14 +37,14 @@ export function CodeCopyButton({ code }: CodeCopyButtonProps) {
     >
       {isCopied ? (
         <Tooltip>
-          <TooltipTrigger className="cursor-pointer">
+          <TooltipTrigger aria-label="Code copied to clipboard" className="cursor-pointer">
             <Copied className="h-4 w-4 text-green-500" />
           </TooltipTrigger>
           <TooltipContent>Copied to clipboard!</TooltipContent>
         </Tooltip>
       ) : (
         <Tooltip>
-          <TooltipTrigger className="cursor-pointer">
+          <TooltipTrigger aria-label="Copy code to clipboard" className="cursor-pointer">
             <Copy className="text-secondary h-4 w-4" />
           </TooltipTrigger>
           <TooltipContent>Copy to clipboard</TooltipContent>

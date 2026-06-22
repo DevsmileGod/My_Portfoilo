@@ -53,8 +53,8 @@ export const skillComponents = {
 
 export const heroConfig = {
   // Personal Information
-  name: 'Ram',
-  title: 'A Full Stack web developer.',
+  name: 'Jessican',
+  title: 'Full Stack Developer & AI Enthusiast',
   avatar: '/assets/logo.png',
 
   // Skills Configuration
@@ -89,7 +89,7 @@ export const heroConfig = {
   // Description Configuration
   description: {
     template:
-      'I build interactive web apps using {skills:0}, {skills:1}, {skills:2}, {skills:3} and {skills:4}. With a focus on <b>UI</b> design. Enthusiastic about <b>Three.js</b>, driven by a keen eye for design.',
+      'I build scalable web applications using {skills:0}, {skills:1}, {skills:2}, {skills:3} and {skills:4}. Passionate about <b>AI integrations</b> and <b>clean code</b>. Always learning, always building.',
   },
 
   // Buttons Configuration
@@ -112,23 +112,13 @@ export const heroConfig = {
 // Social Links Configuration
 export const socialLinks = [
   {
-    name: 'X',
-    href: 'https://x.com/ramxcodes',
-    icon: <X />,
-  },
-  {
-    name: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/ramxcodes/',
-    icon: <LinkedIn />,
-  },
-  {
     name: 'Github',
-    href: 'https://github.com/ramxcodes',
+    href: 'https://github.com/DevsmileGod',
     icon: <Github />,
   },
   {
     name: 'Email',
-    href: 'mailto:ramxcodes@gmail.com',
+    href: 'mailto:j61373998@gmail.com',
     icon: <Mail />,
   },
 ];

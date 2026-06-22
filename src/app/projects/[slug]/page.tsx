@@ -6,6 +6,7 @@ import ArrowLeft from '@/components/svgs/ArrowLeft';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { siteConfig } from '@/config/Meta';
+import { generateProjectSchema } from '@/lib/schema';
 import {
   getProjectCaseStudyBySlug,
   getProjectCaseStudySlugs,
@@ -44,23 +45,61 @@ export async function generateMetadata({
     };
   }
 
-  const { title, description, image } = caseStudy.frontmatter;
+  const { title, description, image, technologies, status } = caseStudy.frontmatter;
+  const canonicalUrl = `${siteConfig.url}/projects/${slug}`;
 
   return {
     metadataBase: new URL(siteConfig.url),
-    title: `${title} - Project Case Study`,
+    title: {
+      template: '%s | ramxcodes',
+      default: `${title} - Project Case Study`,
+    },
     description,
+    keywords: ['project', 'portfolio', 'case study', ...technologies],
+    authors: [
+      {
+        name: 'ramxcodes',
+        url: siteConfig.url,
+      },
+    ],
+    creator: 'ramxcodes',
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon.ico',
+      apple: '/apple-touch-icon.png',
+    },
     openGraph: {
+      type: 'article',
+      locale: 'en_US',
+      url: canonicalUrl,
       title: `${title} - Project Case Study`,
       description,
-      images: [image],
-      type: 'article',
+      siteName: siteConfig.title,
+      authors: ['ramxcodes'],
+      images: [
+        {
+          url: `${siteConfig.url}${image}`,
+          width: 1200,
+          height: 630,
+          alt: title,
+          type: 'image/png',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${title} - Project Case Study`,
       description,
-      images: [image],
+      creator: '@ramxcodes',
+      site: '@ramxcodes',
+      images: [`${siteConfig.url}${image}`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    alternates: {
+      canonical: canonicalUrl,
     },
   };
 }
@@ -78,8 +117,24 @@ export default async function ProjectCaseStudyPage({
   const navigation = await getProjectNavigation(slug);
   const relatedProjects = await getRelatedProjectCaseStudies(slug, 2);
 
+  const projectSchema = generateProjectSchema(
+    caseStudy.frontmatter.title,
+    caseStudy.frontmatter.description,
+    caseStudy.frontmatter.image,
+    caseStudy.frontmatter.technologies,
+    caseStudy.frontmatter.live,
+    caseStudy.frontmatter.github,
+  );
+
   return (
-    <Container className="py-16">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(projectSchema),
+        }}
+      />
+      <Container className="py-16">
       <div className="space-y-12">
         {/* Back Button */}
         <div>
@@ -193,6 +248,7 @@ export default async function ProjectCaseStudyPage({
           </Button>
         </div>
       </div>
-    </Container>
+      </Container>
+    </>
   );
 }

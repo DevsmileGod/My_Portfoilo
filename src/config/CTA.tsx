@@ -11,8 +11,8 @@ export const ctaConfig = {
   profileAlt: 'Profile',
 
   // CTA button settings
-  linkText: 'Book a Free Call',
-  calLink: 'ramxcodes/meeting',
+  linkText: 'Contact Me',
+  calLink: '/contact',
 
   // Pre-text message
   preText: "Hey, you scrolled this far, let's talk.",

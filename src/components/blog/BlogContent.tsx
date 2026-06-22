@@ -4,6 +4,7 @@ import { BlogFrontmatter } from '@/types/blog';
 import rehypeHighlight from '@shikijs/rehype';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
+import { Clock } from 'lucide-react';
 
 import Calender from '../svgs/Calender';
 import { BlogComponents } from './BlogComponents';
@@ -11,9 +12,10 @@ import { BlogComponents } from './BlogComponents';
 interface BlogContentProps {
   frontmatter: BlogFrontmatter;
   content: string;
+  readingTime?: number;
 }
 
-export function BlogContent({ frontmatter, content }: BlogContentProps) {
+export function BlogContent({ frontmatter, content, readingTime }: BlogContentProps) {
   const { title, description, image, tags, date } = frontmatter;
 
   const formattedDate = new Date(date).toLocaleDateString('en-US', {
@@ -51,9 +53,17 @@ export function BlogContent({ frontmatter, content }: BlogContentProps) {
 
           <p className="text-muted-foreground text-xl">{description}</p>
 
-          <div className="text-muted-foreground flex items-center gap-2 text-sm">
-            <Calender className="size-6" />
-            <time dateTime={date}>{formattedDate}</time>
+          <div className="text-muted-foreground flex flex-wrap items-center gap-4 text-sm">
+            <div className="flex items-center gap-2">
+              <Calender className="size-6" />
+              <time dateTime={date}>{formattedDate}</time>
+            </div>
+            {readingTime && (
+              <div className="flex items-center gap-2">
+                <Clock className="size-5" />
+                <span>{readingTime} min read</span>
+              </div>
+            )}
           </div>
         </div>
 

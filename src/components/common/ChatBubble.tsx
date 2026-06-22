@@ -29,25 +29,39 @@ interface Message {
   isStreaming?: boolean;
 }
 
-const initialMessages: Message[] = [
+const getInitialMessages = (): Message[] => [
   {
     id: 1,
-    text: "Hello! I'm Ram's Portfolio Assistant. How can I help you?",
+    text: "Hello! I'm Jessican's Portfolio Assistant. How can I help you?",
     sender: 'bot',
-    timestamp: new Date().toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-    }),
+    timestamp: '',
   },
 ];
 
 const ChatBubble: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>(getInitialMessages());
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { triggerHaptic, isMobile } = useHapticFeedback();
   const { trackEvent } = useUmami();
+
+  // Initialize timestamp for the first message on client side only
+  useEffect(() => {
+    setMessages((prev) =>
+      prev.map((msg) =>
+        msg.id === 1 && !msg.timestamp
+          ? {
+              ...msg,
+              timestamp: new Date().toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+              }),
+            }
+          : msg,
+      ),
+    );
+  }, []);
 
   // Auto-scroll to bottom when new messages are added
   useEffect(() => {
@@ -400,6 +414,7 @@ const ChatBubble: React.FC = () => {
           />
           <Button
             size="sm"
+            aria-label="Send message"
             onClick={handleSendMessage}
             disabled={!newMessage.trim() || isLoading}
           >
