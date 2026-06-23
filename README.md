@@ -139,8 +139,6 @@ export const NewTechIcon = () => {
 };
 ```
 
-## Adding Content
-
 ### Blog Posts
 
 1. Create a new MDX file in `src/data/blog/`
