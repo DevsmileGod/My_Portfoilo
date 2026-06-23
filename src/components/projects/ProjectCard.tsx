@@ -57,18 +57,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <RevealOnScroll>
-      <motion.div initial="rest" whileHover="hover" className="group">
-        <Card className="h-full w-full overflow-hidden border border-gray-100 p-0 shadow-none transition-colors duration-200 dark:border-gray-800 group-hover:border-primary">
-          <CardHeader className="p-0">
-            <div className="relative aspect-video overflow-hidden">
-              <Image
-                className="h-full w-full object-cover thumbnail-zoom"
-                src={project.image}
-                alt={project.title}
-                width={1920}
-                height={1080}
-              />
-          {project.video && (
+      <motion.div initial="rest" whileHover="hover">
+        <div className="group">
+          <Card className="h-full w-full overflow-hidden border border-gray-100 p-0 shadow-none transition-colors duration-200 dark:border-gray-800 group-hover:border-primary">
+            <CardHeader className="p-0">
+              <div className="relative aspect-video overflow-hidden">
+                <Image
+                  className="h-full w-full object-cover thumbnail-zoom"
+                  src={project.image}
+                  alt={project.title}
+                  width={1920}
+                  height={1080}
+                />
+            {project.video && (
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogTrigger asChild>
                 <div className="absolute inset-0 flex cursor-pointer items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:backdrop-blur-xs">
@@ -209,6 +210,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </CardFooter>
         )}
         </Card>
+      </div>
       </motion.div>
     </RevealOnScroll>
   );
