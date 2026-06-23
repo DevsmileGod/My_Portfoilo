@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, useReducedMotion } from 'motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 interface RevealOnScrollProps {
   children: React.ReactNode;

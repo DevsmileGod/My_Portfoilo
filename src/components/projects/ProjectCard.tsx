@@ -20,7 +20,7 @@ import { Link } from 'next-view-transitions';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-import { motion } from 'motion';
+import { motion } from 'framer-motion';
 import ArrowRight from '../svgs/ArrowRight';
 import Github from '../svgs/Github';
 import PlayCircle from '../svgs/PlayCircle';

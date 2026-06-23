@@ -18,8 +18,9 @@ export default function About() {
         <Image
           src="/assets/logo.png"
           alt={`${about.name} - Portfolio profile photo`}
-          width={100}
-          height={100}
+          width={240}
+          height={240}
+          priority
           className="border-secondary size-60 rounded-md border-2 bg-blue-300 dark:bg-yellow-300"
         />
         <div className="mt-4">
