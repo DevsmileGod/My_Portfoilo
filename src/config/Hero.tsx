@@ -24,9 +24,7 @@
  * That's it! Your portfolio will automatically update with your information.
  */
 import Github from '@/components/svgs/Github';
-import LinkedIn from '@/components/svgs/LinkedIn';
 import Mail from '@/components/svgs/Mail';
-import X from '@/components/svgs/X';
 import Bun from '@/components/technologies/Bun';
 import JavaScript from '@/components/technologies/JavaScript';
 import MongoDB from '@/components/technologies/MongoDB';

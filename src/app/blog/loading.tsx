@@ -1,6 +1,6 @@
 import Container from '@/components/common/Container';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { SectionHeading } from '@/components/common/SectionHeading';
+
 
 export default function BlogLoading() {
   return (

@@ -13,8 +13,10 @@ const getTextContent = (node: React.ReactNode): string => {
     return node.map(getTextContent).join('');
   }
 
-  if (React.isValidElement(node) && node.props) {
-    return getTextContent(node.props.children);
+  if (React.isValidElement(node)) {
+    return getTextContent(
+      (node.props as { children?: React.ReactNode }).children,
+    );
   }
 
   return '';
@@ -49,7 +51,9 @@ export const BlogComponents = {
     [key: string]: unknown;
   }) => {
     const id =
-      props.id || slugifyHeading(getTextContent(children).replace(/\s+#+$/u, ''));
+      typeof props.id === 'string' && props.id
+        ? props.id
+        : slugifyHeading(getTextContent(children).replace(/\s+#+$/u, ''));
 
     return (
       <h1 id={id} className="mb-6 text-4xl font-bold" {...props}>
@@ -65,7 +69,9 @@ export const BlogComponents = {
     [key: string]: unknown;
   }) => {
     const id =
-      props.id || slugifyHeading(getTextContent(children).replace(/\s+#+$/u, ''));
+      typeof props.id === 'string' && props.id
+        ? props.id
+        : slugifyHeading(getTextContent(children).replace(/\s+#+$/u, ''));
 
     return (
       <h2 id={id} className="mt-8 mb-4 text-3xl font-semibold" {...props}>
@@ -81,7 +87,9 @@ export const BlogComponents = {
     [key: string]: unknown;
   }) => {
     const id =
-      props.id || slugifyHeading(getTextContent(children).replace(/\s+#+$/u, ''));
+      typeof props.id === 'string' && props.id
+        ? props.id
+        : slugifyHeading(getTextContent(children).replace(/\s+#+$/u, ''));
 
     return (
       <h3 id={id} className="mt-6 mb-3 text-2xl font-medium" {...props}>

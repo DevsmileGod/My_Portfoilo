@@ -201,7 +201,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               <motion.span
                 className="size-4"
                 variants={{ rest: { x: -8, opacity: 0 }, hover: { x: 0, opacity: 1 } }}
-                transition={{ duration: 0.2, easing: [0, 0, 0.2, 1] }}
+                transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
               >
                 <ArrowRight />
               </motion.span>

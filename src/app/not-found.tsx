@@ -20,7 +20,7 @@ export default function NotFound() {
 
           {/* Error Message */}
           <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-            Sorry, the page you're looking for doesn't exist. It might have been moved or deleted.
+            Sorry, the page you&apos;re looking for doesn&apos;t exist. It might have been moved or deleted.
           </p>
 
           {/* Action Button */}

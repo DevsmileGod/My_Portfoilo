@@ -45,7 +45,7 @@ export async function generateMetadata({
     };
   }
 
-  const { title, description, image, technologies, status } = caseStudy.frontmatter;
+  const { title, description, image, technologies } = caseStudy.frontmatter;
   const canonicalUrl = `${siteConfig.url}/projects/${slug}`;
 
   return {
